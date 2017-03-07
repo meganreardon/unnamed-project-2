@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Promise = require('bluebird');
-const debug = require('debug')('ccb:server');
+const debug = require('debug')('cbc:server');
 
 dotenv.load();
 
