@@ -13,12 +13,13 @@ require('../server.js');
 const url = `http://localhost:${process.env.PORT}`;
 
 const exampleUser = {
-  username: 'Example User',
+  username: 'exampleuser',
   password: '1234',
   email: 'exampleuser@test.com'
 };
 
 describe('Auth Routes', function() {
+
   describe('POST: /api/signup', function() {
     describe('with a valid body', function() {
       after( done => {
@@ -40,6 +41,37 @@ describe('Auth Routes', function() {
       });
     });
   });
-});
 
-describe
+  describe('GET: /api/signin', function() {
+    describe('with a valid body', function() {
+      before( done => {
+        let user = new User(exampleUser);
+        user.generatePasswordHash(exampleUser.password)
+        .then( user => user.save())
+        .then( user => {
+          this.tempUser = user;
+          done();
+        })
+        .catch(done);
+      });
+
+      after( done => {
+        User.remove({})
+        .then( () => done())
+        .catch(done);
+      });
+
+      it('should return a token', done => {
+        request.get(`${url}/api/signin`)
+        .auth('exampleuser', '1234')
+        .end((err, res) => {
+          if (err) return done(err);
+          console.log('\n ::: this.tempUser is:', this.tempUser);
+          console.log('token as res.text is:', res.text, '\n');
+          expect(res.status).to.equal(200);
+          done();
+        });
+      });
+    });
+  });
+});
