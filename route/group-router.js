@@ -23,11 +23,12 @@ groupRouter.get('/api/group:id', bearerAuth, function(req, res, next) {
   debug('debug: GET to /api/group in group-router.js');
 
   Group.findById(req.params.id)
-  .then( gallery => {
-    if (gallery.userID.toString() !== req.user._id.toString()) {
+  .then( group => {
+    if (group.userID.toString() !== req.user._id.toString()) {
       return next(createError(401, 'error: invalid user'));
     }
-    res.json(gallery);
+    console.log('\n::: IN GROUP ROUTER \n');
+    res.json(group);
   })
   .catch(next);
 });
