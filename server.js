@@ -9,6 +9,7 @@ const Promise = require('bluebird');
 const debug = require('debug')('cbc:server');
 
 const authRouter = require('./route/auth-router.js');
+const groupRouter = require('./route/group-router.js');
 const errors = require('./lib/error-middleware.js');
 
 dotenv.load();
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use(authRouter);
+app.use(groupRouter);
 app.use(errors);
 
 app.listen(PORT, () => {
