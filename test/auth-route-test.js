@@ -33,7 +33,7 @@ describe('Auth Routes', function() {
         .send(exampleUser)
         .end((err, res) =>  {
           if (err) return done(err);
-          console.log('\n ::: res.text is: ', res.text, '\n');
+          // console.log('\n ::: res.text is: ', res.text, '\n');
           expect(res.status).to.equal(200);
           expect(res.text).to.be.a('string');
           done();
@@ -66,8 +66,8 @@ describe('Auth Routes', function() {
         .auth('exampleuser', '1234')
         .end((err, res) => {
           if (err) return done(err);
-          console.log('\n ::: this.tempUser is:', this.tempUser);
-          console.log('token as res.text is:', res.text, '\n');
+          // console.log('\n ::: this.tempUser is:', this.tempUser);
+          // console.log('token as res.text is:', res.text, '\n');
           expect(res.status).to.equal(200);
           done();
         });
