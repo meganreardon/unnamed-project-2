@@ -1,7 +1,7 @@
 'use strict';
 
 const jsonParser = require('body-parser').json();
-const debug = require('debug')('cbc:auth-router');
+const debug = require('debug')('cbc:auth-router.js');
 const Router = require('express').Router;
 const basicAuth = require('../lib/basic-auth-middleware.js');
 
@@ -10,7 +10,7 @@ const User = require('../model/user.js');
 const authRouter = module.exports = Router();
 
 authRouter.post('/api/signup', jsonParser, function(req, res, next) {
-  debug('debug: in auth-router.js, POST for /api/signup');
+  debug('POST for /api/signup');
 
   let password = req.body.password;
   delete req.body.password;
@@ -25,7 +25,7 @@ authRouter.post('/api/signup', jsonParser, function(req, res, next) {
 });
 
 authRouter.get('/api/signin', basicAuth, function(req, res, next) {
-  debug('debug: in auth-router.js, GET for /api/signin');
+  debug('GET for /api/signin');
 
   User.findOne({ username: req.auth.username })
   .then( user => user.comparePasswordHash(req.auth.password))

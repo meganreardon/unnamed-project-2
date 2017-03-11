@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const createError = require('http-errors');
 const Promise = require('bluebird');
-const debug = require('debug')('cbc:user');
+const debug = require('debug')('cbc:user.js');
 
 const Schema = mongoose.Schema;
 
@@ -18,7 +18,7 @@ const userSchema = Schema( {
 });
 
 userSchema.methods.generatePasswordHash = function(password) {
-  debug('debug: at userSchema.methods.generatePasswordHash');
+  debug('userSchema.methods.generatePasswordHash');
 
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 10, (err, hash) => {
@@ -30,7 +30,7 @@ userSchema.methods.generatePasswordHash = function(password) {
 };
 
 userSchema.methods.comparePasswordHash = function(password) {
-  debug('debug: at userSchema.methods.comparePasswordHash');
+  debug('userSchema.methods.comparePasswordHash');
 
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, (err, valid) => {
@@ -42,7 +42,7 @@ userSchema.methods.comparePasswordHash = function(password) {
 };
 
 userSchema.methods.generateFindHash = function() {
-  debug('debug: at userSchema.methods.generateFindHash');
+  debug('userSchema.methods.generateFindHash');
 
   return new Promise((resolve, reject) => {
     let tries = 0;
